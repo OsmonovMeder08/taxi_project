@@ -11,7 +11,7 @@ alpha = 0.1
 gamma = 0.6
 epsilon = 1.0  
 
-episodes = 50000
+episodes = 5000
 max_steps = 100
 
 rewards_per_episode = [] 
@@ -49,6 +49,7 @@ for episode in range(episodes):
 print("Training finished!")
 
 np.save("q_table.npy", q_table)
+np.save("train_rewards.npy", rewards_per_episode)  
 
 window = 100
 smoothed = np.convolve(rewards_per_episode, np.ones(window)/window, mode='valid')
@@ -57,6 +58,7 @@ plt.plot(smoothed)
 plt.xlabel("Episodes")
 plt.ylabel("Total Reward")
 plt.title("Training Progress")
+plt.savefig("training_graph.png") 
 plt.show()
 
 env.close()
